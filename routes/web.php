@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EventosController;
+use App\Http\Controllers\FileManagerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +27,15 @@ require __DIR__.'/auth.php';
 
 Route::controller(EventosController::class)->group(function () {
     Route::get('/eventos', 'obtenerEventos')->name('eventos')->middleware(['auth']);
+    Route::get('/eventos/evento/{id?}', 'verEvento')->name('verEvento')->middleware(['auth']);
+    Route::post('/eventos/crear', 'crearEvento')->name('crearEvento')->middleware(['auth']);
+    Route::post('/eventos/editar', 'editarEvento')->name('editarEvento')->middleware(['auth']);
+    Route::post('/eventos/eliminar', 'eliminarEvento')->name('eliminarEvento')->middleware(['auth']);
+});
+
+Route::controller(FileManagerController::class)->group(function () {
+    Route::get('/archivos/{path?}', 'index')->name('filemanager')->middleware(['auth']);
+    Route::post('/archivos/subir', 'subirArchivo')->name('subirArchivo')->middleware(['auth']);
+    Route::post('/archivos/eliminar', 'eliminarArchivo')->name('eliminarArchivo')->middleware(['auth']);
+    Route::post('/archivos/renombrar', 'renombrarArchivo')->name('renombrarArchivo')->middleware(['auth']);
 });
