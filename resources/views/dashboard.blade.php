@@ -1,15 +1,19 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
+        <div class="grid grid-flow-row-dense grid-cols-3 grid-rows-3">
+        </div> 
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
+        <div class="mx-2 space-y-2">
+            <div class="space-y-1.5 max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="p-6 grid grid-flow-row-dense grid-cols-3 grid-rows-3 space-x-3">
+                    <div class="col-span-2 p-6 bg-white drop-shadow-md overflow-hidden sm:rounded-lg">
+                        <p class="text-2xl">Navegador de archivos</p>
+                    </div>
+                    <div class="col-span-1 p-6 bg-white drop-shadow-md overflow-hidden sm:rounded-lg">
+                        <p class="text-2xl">Próximos eventos</p>
+                    </div>
                 </div>
             </div>
         </div>
