@@ -48,4 +48,8 @@ class FileManagerController extends Controller
         Storage::deleteDirectory($path);
         return $path;
     }
+    public function descargarArchivo(Request $request)
+    {
+        return Storage::download($request->id.'/'.$request->path);
+    }
 }
