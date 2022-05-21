@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Evento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EventosController extends Controller
 {
@@ -43,5 +44,9 @@ class EventosController extends Controller
         } else {
             return redirect('/dashboard');
         }
+    }
+    public function obtenerArchivos ($id) {
+        $evento = Storage::allFiles($id);
+        return response()->json($evento);
     }
 }
