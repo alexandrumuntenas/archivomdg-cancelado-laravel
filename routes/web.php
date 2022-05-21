@@ -29,14 +29,15 @@ Route::controller(EventosController::class)->group(function () {
     Route::get('/eventos', 'obtenerEventos')->name('eventos')->middleware(['auth']);
     Route::get('/eventos/evento/{id?}', 'verEvento')->name('verEvento')->middleware(['auth']);
     Route::post('/eventos/crear', 'crearEvento')->name('crearEvento')->middleware(['auth']);
-    Route::post('/eventos/editar', 'editarEvento')->name('editarEvento')->middleware(['auth']);
+    Route::post('/eventos/editar/{id}', 'editarEvento')->name('editarEvento')->middleware(['auth']);
     Route::post('/eventos/eliminar', 'eliminarEvento')->name('eliminarEvento')->middleware(['auth']);
     Route::get('/eventos/archivos/{id}', 'obtenerArchivos')->name('archivos')->middleware(['auth']);
 });
 
 Route::controller(FileManagerController::class)->group(function () {
     Route::get('/archivos/{path?}', 'index')->name('filemanager')->middleware(['auth']);
-    Route::post('/archivos/subir', 'subirArchivo')->name('subirArchivo')->middleware(['auth']);
+    Route::post('/archivos/subir/{id?}', 'subirArchivo')->name('subirArchivo')->middleware(['auth']);
+    Route::post('/archivos/subirMultiple/{id?}', 'subirArchivos')->name('subirArchivos')->middleware(['auth']);
     Route::post('/archivos/eliminar', 'eliminarArchivo')->name('eliminarArchivo')->middleware(['auth']);
     Route::post('/archivos/renombrar', 'renombrarArchivo')->name('renombrarArchivo')->middleware(['auth']);
     Route::get('/archivos/descargar/{id?}/{path?}', 'descargarArchivo')->name('descargarArchivo')->middleware(['auth']);
