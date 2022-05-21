@@ -1,1 +1,0 @@
-<img src="{{ asset('assets/logo.png') }}" alt="Archivo de la Banda Municipal de Música Las Gabias" width="50px"/>
