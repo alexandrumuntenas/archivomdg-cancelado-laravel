@@ -48,9 +48,6 @@
             dataType: 'json',
             success: function(archivos) {
                 try {
-                    archivos = archivos.filter(archivo => {
-                        archivo.split('_')[1] == "{{ 'percusion' }}";
-                    })
                     if (archivos.length > 0) {
                         archivos.forEach(archivo => {
                             archivo = archivo.split('/')[1];
@@ -62,7 +59,6 @@
                             `);
                         });
                     } else {
-                        // no hay archivos disponibles
                         $('#files-datos').append(`
                             <button class="min-w-full px-6 py-2.5 bg-transparent text-gray-900 font-medium text-xs rounded hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out">
                                 <p class="text-base text-left">

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cuerda;
 use App\Models\Evento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class EventosController extends Controller
@@ -47,6 +49,15 @@ class EventosController extends Controller
     }
     public function obtenerArchivos ($id) {
         $evento = Storage::allFiles($id);
+        //filtrar archivos por cuerda tras hacer split y obtener el último parametro
+        $evento = array_filter($evento, function($value) {
+            if (str_starts_with(explode('_', $value)[1], strtolower(Cuerda::all()->find(Auth::user()->cuerda)->nombre))) {
+                return $value;
+            } else {
+                return false;
+            }
+        });
+
         return response()->json($evento);
     }
 }
