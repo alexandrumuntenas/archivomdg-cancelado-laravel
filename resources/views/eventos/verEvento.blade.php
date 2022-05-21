@@ -56,7 +56,7 @@
                             archivo = archivo.split('/')[1];
                             $('#files-datos').append(`
                                 <button archivo="${archivo}" class="min-w-full px-6 py-2.5 bg-transparent text-gray-900 font-medium text-xs rounded hover:text-blue-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out"><p class="text-base text-left">
-                                    ${archivo}
+                                        <i class="fa-solid fa-file-arrow-down"></i> ${archivo}
                                     </p>
                                 </button>
                             `);
@@ -66,7 +66,7 @@
                         $('#files-datos').append(`
                             <button class="min-w-full px-6 py-2.5 bg-transparent text-gray-900 font-medium text-xs rounded hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out">
                                 <p class="text-base text-left">
-                                    No hay archivos disponibles
+                                    <i class="fa-solid fa-file-circle-exclamation"></i> No hay archivos disponibles
                                 </p>
                             </button>
                         `);
