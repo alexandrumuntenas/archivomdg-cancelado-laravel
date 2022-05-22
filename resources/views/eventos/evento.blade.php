@@ -20,6 +20,10 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="flex space-x-2">
+                <button type="button" id="eliminarevento"
+                    class="inline-block px-6 py-2.5 bg-transparent text-red-600 font-medium text-xs leading-tight uppercase rounded hover:text-red-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out">Eliminar evento</button>
+            </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 pb-0 flex">
                     <div id="cargador-partituras-evento"
@@ -70,8 +74,27 @@
         });
         $('#partituras').on('click', 'button', function() {
             if ($(this).attr('partituraid')) {
-                window.open(`{{ route('descargarPartitura') }}/${$(this).attr('partituraid')}/{{ Auth::user()->cuerda }}`, '_blank');
+                window.open(
+                    `{{ route('descargarPartitura') }}/${$(this).attr('partituraid')}/{{ Auth::user()->cuerda }}`,
+                    '_blank');
             }
+        });
+        $('#eliminarevento').on('click', function() {
+            $('#cargador-datos-evento').removeClass('text-blue-600');
+            $('#cargador-datos-evento').addClass('text-red-600');
+            $('#cargador-datos-evento').show();
+            $.ajax({
+                url: '{{ route('eliminarEvento') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    id: '{{ $eventoID }}',
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(evento) {
+                    window.location.href = '{{ route('verEventos') }}';
+                }
+            });
         });
     </script>
 </x-app-layout>
