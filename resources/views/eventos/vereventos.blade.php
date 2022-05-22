@@ -33,6 +33,9 @@
             type: 'GET',
             dataType: 'json',
             success: function(eventos) {
+                eventos.sort(function(a, b) {
+                    return new Date(a.fecha) - new Date(b.fecha);
+                });
                 if (eventos.length > 0) {
                     eventos.forEach(function(evento) {
                         evento.tiemporelativo = moment(evento.fecha).fromNow();
