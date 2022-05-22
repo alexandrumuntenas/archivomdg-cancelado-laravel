@@ -61,6 +61,7 @@
                 $('#horaEvento').val(evento.hora);
                 $('#ubicacionEvento').val(evento.lugar);                
                 $('#participantesEvento').val(evento.participantes);
+                $('#partiturasEvento').val(evento.partituras);
                 $('#cargador-datos-evento').hide();
             }
         });

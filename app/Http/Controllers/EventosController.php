@@ -43,7 +43,7 @@ class EventosController extends Controller
         $evento->hora = $request->hora;
         $evento->lugar = $request->lugar;
         $evento->participantes = $request->participantes;
-        $evento->partituras = $evento->partituras;
+        $evento->partituras = $request->partituras || '';
         $evento->save();
         return $evento;
     }
