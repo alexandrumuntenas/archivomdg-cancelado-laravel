@@ -7,9 +7,22 @@ use App\Models\Evento;
 use App\Models\Partitura;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class EventosController extends Controller
 {
+    public function index()
+    {
+        return view('eventos.miseventos');
+    }
+    public function verEventos(Request $request)
+    {
+        return view('eventos.verEventos');
+    }
+    public function verEvento(Request $request)
+    {
+        return view('eventos.evento', ['eventoID' => $request->id]);
+    }
     public function crearEvento(Request $request)
     {
         $evento = new Evento();
@@ -36,25 +49,37 @@ class EventosController extends Controller
     }
     public function eliminarEvento(Request $request)
     {
-        $evento = Evento::find($request->id);
-        $evento->delete();
-        return $evento;
+        return Evento::find($request->id)->delete();
     }
     public function obtenerPartituras(Request $request)
-    {
-        $partituras = explode(',', Evento::find($request->id)->partituras)->map(function ($partitura) {
-            return Partitura::find($partitura);
-        });
+    {   
+        foreach(explode(',', Evento::find($request->id)->partituras) as $partitura) {
+            $partiturasDelEvento[] = Partitura::find($partitura);
+        }
 
-        // filtrar partituras por cuerda
-        $partituras = array_filter($partituras, function ($value) {
-            if (str_starts_with(explode('_', $value)[1], strtolower(Cuerda::all()->find(Auth::user()->cuerda)->nombre))) {
-                return $value;
-            } else {
-                return false;
+        $partiturasDelEvento = array_filter($partiturasDelEvento, 'strlen');
+
+        $partiturasDelUsuario = [];
+
+        foreach($partiturasDelEvento as $partitura) {
+            if (Storage::exists($partitura->archivo . '_' . strtolower(Cuerda::all()->find(Auth::user()->cuerda)->nombre) . '.pdf')) {
+                $partitura['archivo'] = $partitura->archivo . '_' . strtolower(Cuerda::all()->find(Auth::user()->cuerda)->nombre) . '.pdf';
+                array_push($partiturasDelUsuario, $partitura);
             }
-        });
+        }
 
-        return $partituras;
+        return $partiturasDelUsuario;
+    }
+    public function obtenerEvento (Request $request)
+    {
+        return Evento::find($request->id);
+    }
+    public function obtenerEventos ()
+    {
+        return Evento::all();
+    }
+    public function obtenerEventosDelUsuario ()
+    {
+        return Evento::where('fecha', '>=', date('Y-m-d'))->where('participantes', 'like', '%' . Auth::user()->id . '%')->orWhere('participantes', 'like', '@')->get();
     }
 }
