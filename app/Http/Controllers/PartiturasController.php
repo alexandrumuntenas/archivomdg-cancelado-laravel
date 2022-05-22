@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cuerda;
 use App\Models\Partitura;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -29,5 +30,11 @@ class PartiturasController extends Controller
         $partitura = Partitura::find($request->id);
         $partitura->delete();
         return $partitura;
+    }
+    public function descargarPartitura (Request $request)
+    {  
+        $partitura = Partitura::find($request->partitura);
+        $archivo = Storage::get($partitura->archivo . '_' . Cuerda::all()->find($request->cuerda)->nombre . '.pdf');
+        return response($archivo)->header('Content-Type', 'application/pdf');
     }
 }
