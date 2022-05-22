@@ -21,8 +21,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex space-x-2">
+                <button data-bs-toggle="modal" data-bs-target="#editarevento" type="button"
+                    class="inline-block px-6 py-2.5 bg-transparent text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:text-blue-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out">Editar
+                    evento</button>
                 <button type="button" id="eliminarevento"
-                    class="inline-block px-6 py-2.5 bg-transparent text-red-600 font-medium text-xs leading-tight uppercase rounded hover:text-red-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out">Eliminar evento</button>
+                    class="inline-block px-6 py-2.5 bg-transparent text-red-600 font-medium text-xs leading-tight uppercase rounded hover:text-red-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out">Eliminar
+                    evento</button>
             </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 pb-0 flex">
@@ -40,6 +44,8 @@
         </div>
     </div>
 
+    @include('eventos.admin.edit')
+
     <script>
         $.ajax({
             url: '{{ route('obtenerEvento', $eventoID) }}',
@@ -50,6 +56,11 @@
                 $('#evento-nombre').text(evento.nombre);
                 $('#evento-fecha-y-hora').text(evento.fechaYhora);
                 $('#evento-lugar').text(evento.lugar);
+                $('#nombreEvento').val(evento.nombre);
+                $('#fechaEvento').val(evento.fecha);
+                $('#horaEvento').val(evento.hora);
+                $('#ubicacionEvento').val(evento.lugar);                
+                $('#participantesEvento').val(evento.participantes);
                 $('#cargador-datos-evento').hide();
             }
         });
