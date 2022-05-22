@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return redirect('/miseventos');
+    return redirect(route('misEventos'));
 });
 
 require __DIR__.'/auth.php';
