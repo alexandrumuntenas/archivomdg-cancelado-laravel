@@ -47,9 +47,8 @@
                           class="form-label inline-block mb-2 text-gray-700 form-floating ">Participantes</label>
                   </div>
                   <div class="mb-3 form-floating">
-                      <input type="text"
-                          class=" form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded     transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                          value="Sube las partituras mediante el cliente ArchivoMDG" disabled />
+                      <input type="text" id="partiturasEvento"
+                          class=" form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded     transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"/>
                       <label for="floatingInput"
                           class="form-label inline-block mb-2 text-gray-700 form-floating ">Archivos</label>
                   </div>
@@ -75,6 +74,7 @@
                   fecha: $('#fechaEvento').val(),
                   hora: $('#horaEvento').val(),
                   participantes: $('#participantesEvento').val(),
+                  partituras: $('#partiturasEvento').val(),
                   _token: '{{ csrf_token() }}'
               },
               success: function(data) {
