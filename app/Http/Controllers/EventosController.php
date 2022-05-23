@@ -52,8 +52,8 @@ class EventosController extends Controller
         return Evento::find($request->id)->delete();
     }
     public function obtenerPartituras(Request $request)
-    {   
-        foreach(explode(',', Evento::find($request->id)->partituras) as $partitura) {
+    {
+        foreach (explode(',', Evento::find($request->id)->partituras) as $partitura) {
             $partiturasDelEvento[] = Partitura::find($partitura);
         }
 
@@ -61,7 +61,7 @@ class EventosController extends Controller
 
         $partiturasDelUsuario = [];
 
-        foreach($partiturasDelEvento as $partitura) {
+        foreach ($partiturasDelEvento as $partitura) {
             if (Storage::exists($partitura->archivo . '_' . strtolower(Cuerda::all()->find(Auth::user()->cuerda)->nombre) . '.pdf')) {
                 $partitura['archivo'] = $partitura->archivo . '_' . strtolower(Cuerda::all()->find(Auth::user()->cuerda)->nombre) . '.pdf';
                 array_push($partiturasDelUsuario, $partitura);
@@ -70,15 +70,15 @@ class EventosController extends Controller
 
         return $partiturasDelUsuario;
     }
-    public function obtenerEvento (Request $request)
+    public function obtenerEvento(Request $request)
     {
         return Evento::find($request->id);
     }
-    public function obtenerEventos ()
+    public function obtenerEventos()
     {
         return Evento::all();
     }
-    public function obtenerEventosDelUsuario ()
+    public function obtenerEventosDelUsuario()
     {
         return Evento::where('fecha', '>=', date('Y-m-d'))->where('participantes', 'like', '%' . Auth::user()->id . '%')->orWhere('participantes', 'like', '@')->get();
     }
