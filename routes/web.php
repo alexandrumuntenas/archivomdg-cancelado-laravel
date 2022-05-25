@@ -26,18 +26,22 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::controller(EventosController::class)->group(function () {
-    Route::get('/eventos/miseventos', 'index')->name('misEventos')->middleware(['auth']);
-    Route::get('/eventos/ver', 'verEventos')->name('verEventos')->middleware(['auth']);
-    Route::get('/eventos/evento/{id?}', 'verEvento')->name('verEvento')->middleware(['auth']);
+    // RUTAS PÚBLICO (v)
+    Route::get('/eventos/v', 'verEventos')->name('verEventos')->middleware(['auth']);
+    Route::get('/eventos/v/me', 'misEventos')->name('verMisEventos')->middleware(['auth']);
+    Route::get('/eventos/v/evento/{id?}', 'verEvento')->name('verEvento')->middleware(['auth']);
+    Route::get('/eventos/v/evento/{id?}/partituras', 'verPartituras')->name('verPartituras')->middleware(['auth']);
 
-    // API
-    Route::get('/eventos/detalles/{id?}', 'obtenerEvento')->name('obtenerEvento')->middleware(['auth']);
-    Route::get('/eventos/detalles/{id?}/partituras', 'obtenerPartituras')->name('obtenerPartituras')->middleware(['auth']);
-    Route::get('/eventos/todos', 'obtenerEventos')->name('obtenerEventos')->middleware(['auth']);
-    Route::get('/eventos/participa', 'obtenerEventosDelUsuario')->name('obtenerEventosDelUsuario')->middleware(['auth']);
-    Route::post('/eventos/crear', 'crearEvento')->name('crearEvento')->middleware(['auth']);
-    Route::post('/eventos/editar', 'editarEvento')->name('editarEvento')->middleware(['auth']);
-    Route::post('/eventos/eliminar', 'eliminarEvento')->name('eliminarEvento')->middleware(['auth']);
+    // API (d)
+    Route::get('/eventos/d', 'obtenerEventos')->name('obtenerEventos')->middleware(['auth']);
+    Route::get('/eventos/d/me', 'obtenerMisEventos')->name('obtenerMisEventos')->middleware(['auth']);
+    Route::get('/eventos/d/evento/{id?}', 'obtenerEvento')->name('obtenerEvento')->middleware(['auth']);
+    Route::get('/eventos/d/evento/{id?}/partituras', 'obtenerPartituras')->name('obtenerPartituras')->middleware(['auth']);
+
+    // API CRUD (g)
+    Route::post('/eventos/g/crear', 'crearEvento')->name('crearEvento')->middleware(['auth']);
+    Route::post('/eventos/g/editar', 'editarEvento')->name('editarEvento')->middleware(['auth']);
+    Route::post('/eventos/g/eliminar', 'eliminarEvento')->name('eliminarEvento')->middleware(['auth']);
 });
 
 Route::controller(PartiturasController::class)->group(function () {
